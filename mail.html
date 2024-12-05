@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        /* Styling for the form */
+        
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 130vh;
+            background: linear-gradient(45deg, #f3a683, #f7d794);
+            margin-top: 5px;
+        }
+        
+        .form-container {
+            background-color: white;
+            padding: 20px;
+            padding-top: 5px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 600px;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        
+        a {
+            text-decoration: none;
+        }
+        /* Styling the anchor tag as a button */
+        
+        .button-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 16px;
+            border: none;
+            margin-top: 20px;
+        }
+        
+        .button-link:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="form-container">
+        <center>
+            <h2>Register</h2>
+        </center>
+        <form id="registerForm" onsubmit="sendemail(event)">
+            <label for="userid">User ID:</label>
+            <input type="text" id="userid" name="userid" placeholder="Enter your user ID" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+            <label for="firstname">First Name:</label>
+            <input type="text" id="firstname" name="firstname" placeholder="Enter your first name" required>
+
+            <label for="lastname">Last Name:</label>
+            <input type="text" id="lastname" name="lastname" placeholder="Enter your last name" required>
+
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender" required>
+                <option value="">Select your gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+
+            <label for="skill">Skill:</label>
+            <input type="text" id="skill" name="skill" placeholder="Enter your skill" required>
+
+            <label for="destination">Destination:</label>
+            <input type="text" id="destination" name="destination" placeholder="Enter your destination" required>
+
+            <label for="about">About (Optional):</label>
+            <textarea id="about" name="about" placeholder="Tell us something about yourself (Optional)"></textarea>
+
+            <input type="submit" value="Register">
+            <p>If already have an account--><a href="login.html">click here</a></p>
+        </form>
+
+        <div id="message"></div>
+
+        <!-- New anchor tag added -->
+        <div id="additionalLink" style="margin-top: 20px; text-align: center;"></div>
+    </div>
+
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            emailjs.init("9suZQ67Drwhh_i966"); // Replace with your EmailJS user ID
+        })();
+
+        function generatePassword() {
+            const chars = "0123456789!@#";
+            let password = "";
+            for (let i = 0; i < 4; i++) {
+                password += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return password;
+        }
+
+        function sendemail(event) {
+            event.preventDefault(); // Prevent form submission
+
+            const sender_name = document.getElementById("firstname").value;
+            const sender_email = document.getElementById("email").value;
+            const skill = document.getElementById("skill").value.toLowerCase();
+
+            const generatedPassword = generatePassword(); // Generate random password
+
+            const message = `
+                Welcome ${sender_name}!
+                Thank you for registering.
+                
+                Your generated password is: ${generatedPassword}
+            `;
+
+            const templateParams = {
+                to_name: sender_name,
+                email: sender_email,
+                message: message,
+            };
+
+            emailjs
+                .send("service_zl3wm0j", "template_4njttln", templateParams)
+                .then(function(response) {
+                    console.log("SUCCESS!", response.status, response.text);
+
+                    document.getElementById("additionalLink").innerHTML = `
+                        <a href="login.html" target="_blank" class="button-link">Visit our homepage</a>
+                    `;
+                })
+                .catch(function(error) {
+                    console.error("FAILED...", error);
+                    document.getElementById("message").innerHTML = `
+                        <p>Failed to send email. Please try again later.</p>
+                    `;
+                });
+        }
+
+        const form = document.getElementById('registerForm');
+        const messageContainer = document.getElementById('message');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            const userId = document.getElementById('userid').value;
+            const password = generateRandomPassword(8); // Generate random password
+
+            // Save the username and password to localStorage
+            localStorage.setItem('username', userId);
+            localStorage.setItem('password', password);
+        })
+    </script>
+</body>
+
+</html>

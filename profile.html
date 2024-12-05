@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            padding: 20px;
+        }
+        
+        .header {
+            background-color: #6200ea;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+            border-radius: 5px;
+        }
+        
+        .profile-link {
+            display: block;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 18px;
+            color: #6200ea;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .profile-section {
+            display: none;
+            margin: 20px auto;
+            max-width: 500px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #fff;
+        }
+        
+        .profile-section h2 {
+            margin-bottom: 10px;
+        }
+        
+        .profile-info {
+            font-size: 16px;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>Welcome to Your Profile</h1>
+    </div>
+
+
+
+    <!-- Profile Section -->
+    <div class="profile-section" id="profileSection">
+        <h2>Your Profile</h2>
+        <p class="profile-info" id="profileName">Name: </p>
+        <p class="profile-info" id="profileEmail">Email: </p>
+        <a href="#" class="profile-link" id="logoutLink">Log Out</a>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
